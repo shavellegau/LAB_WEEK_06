@@ -7,13 +7,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.lab_week_06.model.CatBreed
 import com.example.lab_week_06.model.CatModel
 import com.example.lab_week_06.model.Gender
+import android.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recycler_view)
     }
     private val catAdapter by lazy {
-        CatAdapter(layoutInflater, GlideImageLoader(this))
+        // Glide is used here to load the images
+        // Here we are passing the onClickListener function to the Adapter
+        CatAdapter(layoutInflater, GlideImageLoader(this), object:
+            CatAdapter.OnClickListener {
+            // When this is triggered, the pop up dialog will be shown
+            override fun onItemClick(cat: CatModel) = showSelectionDialog(cat)
+        })
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,5 +61,15 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         )
+    }
+    // This will create a pop up dialog when one of the items from the recycler view is clicked.
+    private fun showSelectionDialog(cat: CatModel) {
+        AlertDialog.Builder(this)
+            // Set the title for the dialog
+            .setTitle("Cat Selected")
+            // Set the message for the dialog
+            .setMessage("You have selected cat ${cat.name}")
+            // Set if the OK button should be enabled
+            .setPositiveButton("OK") { _, _ -> }.show()
     }
 }

@@ -4,7 +4,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lab_week_06.ImageLoader
 import com.example.lab_week_06.model.CatBreed
 import com.example.lab_week_06.model.CatModel
 import com.example.lab_week_06.model.Gender
@@ -13,11 +12,12 @@ private val FEMALE_SYMBOL = "\u2640"
 private val MALE_SYMBOL = "\u2642"
 private const val UNKNOWN_SYMBOL = "?"
 
-class CatViewHolder(containerView: View, private val imageLoader: ImageLoader) :
-    RecyclerView.ViewHolder(containerView) {
+class CatViewHolder(
+    private val containerView: View,
+    private val imageLoader: ImageLoader,
+    private val onClickListener: CatAdapter.OnClickListener // 🔹 gunakan dari CatAdapter
+) : RecyclerView.ViewHolder(containerView) {
 
-    // containerView is the container Layout of each item List
-    // Here findViewById is used to get the reference of each view inside the container
     private val catBiographyView: TextView by lazy {
         containerView.findViewById(R.id.cat_biography)
     }
@@ -34,8 +34,12 @@ class CatViewHolder(containerView: View, private val imageLoader: ImageLoader) :
         containerView.findViewById(R.id.cat_photo)
     }
 
-    // This function is called in the adapter to provide the binding function
     fun bindData(cat: CatModel) {
+        // Klik item akan memanggil listener dari adapter
+        containerView.setOnClickListener {
+            onClickListener.onItemClick(cat)
+        }
+
         imageLoader.loadImage(cat.imageUrl, catPhotoView)
         catNameView.text = cat.name
         catBreedView.text = when (cat.breed) {
