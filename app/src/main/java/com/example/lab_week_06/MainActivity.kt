@@ -33,8 +33,10 @@ class MainActivity : AppCompatActivity() {
         // Setup the layout manager for the recycler view
         // A layout manager is used to set the structure of the item views
         // For this tutorial, we're using the vertical linear structure
-        LinearLayoutManager(this,
-            LinearLayoutManager.VERTICAL, false).also { recyclerView.layoutManager = it }
+        LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL, false
+        ).also { recyclerView.layoutManager = it }
 
         //Instantiate ItemTouchHelper for the swipe to delete callback and
         //attach it to the recycler view
@@ -64,11 +66,60 @@ class MainActivity : AppCompatActivity() {
                     "Curious George",
                     "Award winning investigator",
                     "https://cdn2.thecatapi.com/images/bar.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.ExoticShorthair,
+                    "Tom",
+                    "Always chasing Jerry",
+                    "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.BalineseJavanese,
+                    "Luna",
+                    "Queen of naps",
+                    "https://cdn2.thecatapi.com/images/c9b.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.AmericanCurl,
+                    "Oscar",
+                    "Curious and playful",
+                    "https://cdn2.thecatapi.com/images/MTY3ODIyMQ.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.ExoticShorthair,
+                    "Misty",
+                    "Loves sunbathing",
+                    "https://cdn2.thecatapi.com/images/MTc3NjE5Mw.jpg"
+                ),
+                CatModel(
+                    Gender.Male,
+                    CatBreed.BalineseJavanese,
+                    "Shadow",
+                    "Mysterious and fast",
+                    "https://cdn2.thecatapi.com/images/9q0.jpg"
+                ),
+                CatModel(
+                    Gender.Female,
+                    CatBreed.AmericanCurl,
+                    "Cleo",
+                    "Soft and sassy",
+                    "https://cdn2.thecatapi.com/images/cdq.jpg"
+                ),
+                CatModel(
+                    Gender.Unknown,
+                    CatBreed.ExoticShorthair,
+                    "Snowball",
+                    "Cute and fluffy",
+                    "https://cdn2.thecatapi.com/images/MTY3ODIyMA.jpg"
                 )
             )
         )
     }
-    // This will create a pop up dialog when one of the items from the recycler view is clicked.
+        // This will create a pop up dialog when one of the items from the recycler view is clicked.
     private fun showSelectionDialog(cat: CatModel) {
         AlertDialog.Builder(this)
             // Set the title for the dialog
