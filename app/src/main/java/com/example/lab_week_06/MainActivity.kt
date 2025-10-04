@@ -1,13 +1,14 @@
 package com.example.lab_week_06
 
 import android.os.Bundle
+import android.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper // Missing import for ItemTouchHelper
 import com.example.lab_week_06.model.CatBreed
 import com.example.lab_week_06.model.CatModel
 import com.example.lab_week_06.model.Gender
-import android.app.AlertDialog
 
 class MainActivity : AppCompatActivity() {
     private val recyclerView: RecyclerView by lazy {
@@ -32,8 +33,13 @@ class MainActivity : AppCompatActivity() {
         // Setup the layout manager for the recycler view
         // A layout manager is used to set the structure of the item views
         // For this tutorial, we're using the vertical linear structure
-        recyclerView.layoutManager = LinearLayoutManager(this,
-            LinearLayoutManager.VERTICAL, false)
+        LinearLayoutManager(this,
+            LinearLayoutManager.VERTICAL, false).also { recyclerView.layoutManager = it }
+
+        //Instantiate ItemTouchHelper for the swipe to delete callback and
+        //attach it to the recycler view
+        val itemTouchHelper = ItemTouchHelper(catAdapter.swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         // Add data to the model list in the adapter
         catAdapter.setData(
